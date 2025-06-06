@@ -49,8 +49,21 @@ else
 fi
 
 echo "Setting Hostname"
-sed -i "s/$HOSTNAME/$newHostname/g" /etc/hosts
+
+# Überprüfen, ob /etc/hosts existiert
+if [ ! -f /etc/hosts ]; then
+    echo "/etc/hosts does not exist. Creating it with default content."
+    echo "127.0.0.1   localhost" > /etc/hosts
+    echo "127.0.1.1   $newHostname" >> /etc/hosts
+else
+    # Wenn die Datei existiert, den Hostnamen ersetzen
+    sed -i "s/$HOSTNAME/$newHostname/g" /etc/hosts
+fi
+
+# Hostnamen in /etc/hostname ändern
 sed -i "s/$HOSTNAME/$newHostname/g" /etc/hostname
+
+# Hostnamen des Systems setzen
 hostnamectl set-hostname $newHostname
 
 echo "Done!"
