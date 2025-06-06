@@ -28,21 +28,24 @@ echo "Generating SSH server keys"
 if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
     ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
 else
-    ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa -y
+    rm -f /etc/ssh/ssh_host_rsa_key
+    ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
 fi
 
 # Überprüfen und DSA-Schlüssel generieren
 if [ ! -f /etc/ssh/ssh_host_dsa_key ]; then
     ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 else
-    ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa -y
+    rm -f /etc/ssh/ssh_host_dsa_key
+    ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 fi
 
 # Überprüfen und ECDSA-Schlüssel generieren
 if [ ! -f /etc/ssh/ssh_host_ecdsa_key ]; then
     ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521
 else
-    ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521 -y
+    rm -f /etc/ssh/ssh_host_ecdsa_key
+    ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521
 fi
 
 echo "Setting Hostname"
