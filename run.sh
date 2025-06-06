@@ -50,13 +50,13 @@ fi
 
 echo "Setting Hostname"
 
-# Überprüfen, ob /etc/hosts existiert
-if [ ! -f /etc/hosts ]; then
-    echo "/etc/hosts does not exist. Creating it with default content."
+# Überprüfen, ob /etc/hosts existiert und ob sie leer ist
+if [ ! -f /etc/hosts ] || [ ! -s /etc/hosts ]; then
+    echo "/etc/hosts does not exist or is empty. Creating it with default content."
     echo "127.0.0.1   localhost" > /etc/hosts
     echo "127.0.1.1   $newHostname" >> /etc/hosts
 else
-    # Wenn die Datei existiert, den Hostnamen ersetzen
+    # Wenn die Datei existiert und nicht leer ist, den Hostnamen ersetzen
     sed -i "s/$HOSTNAME/$newHostname/g" /etc/hosts
 fi
 
